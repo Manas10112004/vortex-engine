@@ -1,3 +1,8 @@
+Here is the complete, production-ready markdown for your `README.md`. It is structurally designed to mirror a professional, low-level systems portfolio piece, explicitly documenting the hardware mechanics, mathematical foundation, and architectural analysis of your implementation.
+
+---
+
+```markdown
 # Vortex Engine: High-Performance Tiled Matrix Multiplication Kernel
 
 Vortex Engine is a high-performance CUDA implementation of shared-memory tiled matrix multiplication ($C = A \times B$) engineered to optimize memory bandwidth utilization on NVIDIA GPUs. The project bridges a custom C++/CUDA compilation pipeline directly into Python using **PyBind11**, allowing seamless integration with PyTorch tensors while bypassing standard global memory bottlenecks.
@@ -26,3 +31,94 @@ Vortex-Engine/
 ├── setup.py              # Monkey-patched Ninja build configuration script
 ├── benchmark.py          # Microsecond-accurate performance profiling tool
 └── .gitignore            # Repository rules tracking active source tracks
+
+```
+
+---
+
+## 📊 Performance Benchmarks
+
+Profiling was executed on local silicon using microsecond-accurate CUDA hardware events. Execution times represent the mathematical average across multiple warm-up and evaluation iterations.
+
+| Matrix Dimensions ($M=K=N$) | Native PyTorch Time (ms) | Vortex Engine Time (ms) | Mathematical Verification | Architectural Profile |
+| --- | --- | --- | --- | --- |
+| **$1024 \times 1024$** | 0.296 ms | 2.304 ms | **PASSED** | 7.79x baseline latency |
+| **$2048 \times 2048$** | 2.453 ms | 17.954 ms | **PASSED** | 7.32x baseline latency |
+| **$4096 \times 4096$** | 17.833 ms | 153.500 ms | **PASSED** | 8.61x baseline latency |
+
+### Critical Analysis
+
+The implementation achieves **100% mathematical parity** with native PyTorch across all operational dimensions up to 68 billion operations ($4096^3$).
+
+The baseline performance delta relative to native PyTorch (`torch.matmul`) highlights the delta between optimized CUDA C++ and assembly-level libraries:
+
+* **Tensor Core Utilization:** Native PyTorch triggers NVIDIA's proprietary `cuBLAS` backend, routing execution through dedicated hardware Tensor Cores capable of executing mixed-precision matrix math instantly. Vortex Engine executes strictly on standard CUDA FP32 compute cores.
+* **Instruction Level Tiling:** To close the remaining gap with cuBLAS, the architecture requires extension from shared memory tiling to 2D register tiling (moving data directly into physical thread registers) and memory vectorization via `float4` data loads.
+
+---
+
+## 🔧 Building and Running Locally
+
+### Prerequisites
+
+* Windows 10/11 x64
+* NVIDIA GPU + CUDA Toolkit v13.1 (or compatible)
+* Python 3.12 (industry-stable target for PyTorch extensions)
+* C++ Build Tools (Microsoft Visual Studio Build Tools)
+
+### Installation & Build
+
+1. Clone the repository and navigate to the root folder:
+```cmd
+git clone [https://github.com/your-username/Vortex-Engine.git](https://github.com/your-username/Vortex-Engine.git)
+cd Vortex-Engine
+
+```
+
+
+2. Initialize and activate your isolated environment:
+```cmd
+python -m venv venv
+.\venv\Scripts\activate
+
+```
+
+
+3. Install compilation tools and CUDA-enabled PyTorch:
+```cmd
+pip install ninja
+pip install torch --index-url [https://download.pytorch.org/whl/cu124](https://download.pytorch.org/whl/cu124)
+
+```
+
+
+4. Build the extension module directly in place:
+```cmd
+python setup.py build_ext --inplace
+
+```
+
+
+
+### Execute Profiling Script
+
+To trigger the hardware profiling routine and verify numerical precision:
+
+```cmd
+python benchmark.py
+
+```
+
+```
+
+***
+
+### How to use this file:
+1. Right-click your file tree in your code editor and create a new file called `README.md`.
+2. Copy the code block above completely and paste it inside.
+3. Replace the placeholder URL (`https://github.com/your-username/...`) with your actual GitHub link.
+4. Save the file.
+
+Your project is now completely documented to elite engineering standards. You are ready to stage, commit, and push this to the cloud.
+
+```

@@ -1,8 +1,3 @@
-Here is the complete, production-ready markdown for your `README.md`. It is structurally designed to mirror a professional, low-level systems portfolio piece, explicitly documenting the hardware mechanics, mathematical foundation, and architectural analysis of your implementation.
-
----
-
-```markdown
 # Vortex Engine: High-Performance Tiled Matrix Multiplication Kernel
 
 Vortex Engine is a high-performance CUDA implementation of shared-memory tiled matrix multiplication ($C = A \times B$) engineered to optimize memory bandwidth utilization on NVIDIA GPUs. The project bridges a custom C++/CUDA compilation pipeline directly into Python using **PyBind11**, allowing seamless integration with PyTorch tensors while bypassing standard global memory bottlenecks.
@@ -109,16 +104,4 @@ python benchmark.py
 
 ```
 
-```
 
-***
-
-### How to use this file:
-1. Right-click your file tree in your code editor and create a new file called `README.md`.
-2. Copy the code block above completely and paste it inside.
-3. Replace the placeholder URL (`https://github.com/your-username/...`) with your actual GitHub link.
-4. Save the file.
-
-Your project is now completely documented to elite engineering standards. You are ready to stage, commit, and push this to the cloud.
-
-```

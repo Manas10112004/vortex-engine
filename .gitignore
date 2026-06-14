@@ -1,0 +1,19 @@
+# Python environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# C++ / C compiler artifacts
+build/
+bin/
+obj/
+
+# Compiled Python binaries (The C++ Extensions)
+*.pyd
+*.so
+*.dll
+
+# IDE files
+.idea/
+.vscode/
